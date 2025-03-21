@@ -4,12 +4,13 @@ on:
   schedule:
     # Run weekly on Monday at 6 AM UTC
     - cron: '0 6 * * 1'
-  # Allow manual runs
   workflow_dispatch:
 
 jobs:
   scrape:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     
     steps:
     - name: Checkout repository
@@ -28,6 +29,12 @@ jobs:
     - name: Run scraper
       run: python groundwork_scraper.py
       
+    - name: Update Google Sheet
+      run: python update_sheet.py
+      env:
+        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+        GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
+        
     - name: Commit results
       run: |
         git config --global user.name 'GitHub Actions Bot'
