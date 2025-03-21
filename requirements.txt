@@ -1,3 +1,5 @@
 requests
 beautifulsoup4
 python-dateutil
+gspread
+oauth2client
