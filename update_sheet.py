@@ -53,7 +53,7 @@ def update_google_sheet():
         # Clear existing data (keep headers)
         if sheet.row_count > 1:
             # Get the range excluding the header row
-            sheet.batch_clear(["A2:K"])
+            sheet.batch_clear(["A2:Z"])
         
         # Prepare data for insertion
         rows = []
